@@ -24,10 +24,6 @@
   color: #000;
 }
 
-table thead tr th {
-  text-align: center;
-}
-
 table tr td {
   border: 2px solid rgb(47, 47, 47);
 }
