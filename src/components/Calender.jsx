@@ -6,16 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer"
-import { PlusIcon } from "lucide-react";
+import CreateTodoDrawer from "./CreateTodoDrawer";
 
-const Calendar = ({
-  weeksName,
-  getWeekDays,
-  currentDate,
-  currentMonth,
-}) => {
+const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth }) => {
+
   return (
     <div className="mt-5">
       <Table className="w-full">
@@ -39,9 +33,7 @@ const Calendar = ({
               >
                 <div className="flex justify-between items-center">
                   <div className="invisible group-hover:visible"> 
-                    <Button className="dark:bg-[#202020]" variant="outline" size="icon">
-                      <PlusIcon className="h-4 w-4"/>
-                    </Button>
+                    <CreateTodoDrawer />
                   </div>
                   <div className="ml-auto text-base">
                     {date.day === new Date().getDate() && currentDate.getMonth() === currentMonth ? (
