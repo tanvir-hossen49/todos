@@ -1,6 +1,7 @@
 import { CheckCircle } from "lucide-react";
 import { ModeToggle } from "../components/ModeToggle";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster";
 
 const MainLayout = () => {
   return (
@@ -17,6 +18,8 @@ const MainLayout = () => {
       <section>
         <Outlet />
       </section>
+
+      <Toaster/>
     </>
   );
 };
