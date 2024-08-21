@@ -26,8 +26,6 @@ const Home = () => {
   const [initialWeek, setInitialWeek] = useState(0);
   const [countCurrentWeekFunCall, setCountCurrentWeekFunCall] = useState(0);
   const [currentWeek, setCurrentWeek] = useState(0);
-
-  console.log(daysInMonth,"currentMonth", currentMonth, "currentWeek", currentWeek);
   
   useEffect(() => {
     updateCalendar();
@@ -242,6 +240,7 @@ const Home = () => {
         weeksName={WEEKDAY_NAMES}
         currentMonth={currentMonth}
         currentDate={currentDate}
+        currentYear={currentYear}
         getWeekDays={getWeekDays}
       />
     </div>
