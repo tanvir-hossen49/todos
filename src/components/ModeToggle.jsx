@@ -1,15 +1,13 @@
-import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useTheme } from "./ThemeProvider";
+// src/ModeToggle.js
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setTheme } from '@/store/themeSlice';
+import { Button } from '@/components/ui/button';
+import { Sun, Moon } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const dispatch = useDispatch();
 
   return (
     <DropdownMenu>
@@ -21,13 +19,13 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={() => dispatch(setTheme('light'))}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => dispatch(setTheme('dark'))}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={() => dispatch(setTheme('system'))}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -1,60 +1,38 @@
-import { createContext, useContext, useEffect, useState } from "react";
+// src/ThemeProvider.js
+import React, { createContext, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setTheme } from '@/store/themeSlice';
 
-const initialState = {
-  theme: "system",
-  setTheme: () => null,
-};
+// Create ThemeContext
+const ThemeContext = createContext();
 
-const ThemeProviderContext = createContext(initialState);
+export function useTheme() {
+  return useContext(ThemeContext);
+}
 
-export function ThemeProvider({
-  children,
-  defaultTheme = "system",
-  storageKey = "vite-ui-theme",
-  ...props
-}) {
-  const [theme, setTheme] = useState(
-    () => localStorage.getItem(storageKey) || defaultTheme
-  );
+export function ThemeProvider({ children }) {
+  const theme = useSelector(state => state.theme.value);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    const classList = document.documentElement.classList;
+    classList.remove('light', 'dark');
 
-    root.classList.remove("light", "dark");
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
+    if (theme === 'system') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      classList.add(prefersDark ? 'dark' : 'light');
+    } else {
+      classList.add(theme);
     }
-
-    root.classList.add(theme);
   }, [theme]);
 
-  const value = {
-    theme,
-    setTheme: theme => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
+  const handleSetTheme = (newTheme) => {
+    dispatch(setTheme(newTheme));
   };
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeContext.Provider value={{ theme, setTheme: handleSetTheme }}>
       {children}
-    </ThemeProviderContext.Provider>
+    </ThemeContext.Provider>
   );
 }
-
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
-
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider");
-
-  return context;
-};
