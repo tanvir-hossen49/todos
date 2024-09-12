@@ -8,7 +8,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "./ui/drawer";
 import { Button } from "./ui/button";
 import { PlusIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { findTask, setTasks, toggleCheckBox, updateTask } from "@/store/todoSlice";
+import { setTasks, toggleCheckBox } from "@/store/todoSlice";
 import { openDrawer } from "@/store/drawerSlice";
 import TodoDrawer from "./TodoDrawer";
 
@@ -41,8 +41,7 @@ const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYe
               >
                 <>
                   <div className="flex justify-between items-center">
-                    <div className="invisible group-hover:visible"> 
-                      {/* onClick={() => setClickDay(date.day)} */}
+                    <div className="invisible group-hover:visible">
                       <Drawer>
                         <DrawerTrigger>
                           <Button className="dark:bg-[#202020]" variant="outline" size="icon" aria-label="Create a new todo">
@@ -79,7 +78,10 @@ const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYe
                             </DrawerTrigger>
 
                             <DrawerContent>
-                              <TodoDrawer />
+                              <TodoDrawer
+                                date={formateDate(date.day, currentMonth + 1, currentYear)}
+                                task={task}
+                              />
                             </DrawerContent>
                           </Drawer>
 

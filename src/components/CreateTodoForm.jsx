@@ -6,7 +6,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from './ui/input';
 
 const CreateTodoForm = ({ register, errors, todos, setTodos }) => {
-
     // Add a new todo field
     const addTodoBox = () => {
         const newTodo = { id: Date.now(), level: "", isChecked: false };
@@ -52,7 +51,7 @@ const CreateTodoForm = ({ register, errors, todos, setTodos }) => {
                             />
                             <Input
                                 type="text"
-                                className="p-1 text-base border-1 border-b border-b-white outline-none bg-transparent w-1/2"
+                                className="p-1 text-base border-1 border-b dark:border-b-white border-b-black outline-none bg-transparent w-1/2"
                                 {...register(`todo[${index}]`, {
                                     required: true
                                 })}

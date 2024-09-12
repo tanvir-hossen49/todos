@@ -1,52 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = JSON.parse(localStorage.getItem('Todos')) || {};
+const allTasks = JSON.parse(localStorage.getItem('Todos')) || {};
 
 const initialState = {
-    tasks: {
-      "23-8-2024":[
-          {
-            title: "Namaz",
-            todos: [
-                { id: 1234234, level: "Faza", isChecked: true },
-                { id: 2342345, level: "Zohor", isChecked: true },
-                { id: 1234532, level: "Asor", isChecked: true },
-                { id: 4564534, level: "Magrib", isChecked: true },
-            ]
-          },
-          {
-            title: "Study",
-            todos: [
-                { id: 1234474, level: "Faza", isChecked: true },
-                { id: 2342336, level: "Zohor", isChecked: true },
-                { id: 1238532, level: "Asor", isChecked: true },
-                { id: 4564584, level: "Magrib", isChecked: true },
-            ]  
-          }
-      ], 
-      "11-9-2024":[
-          {
-            title: "Namaz",
-            todos: [
-                { id: 1234234, level: "Faza", isChecked: true },
-                { id: 2342345, level: "Zohor", isChecked: true },
-                { id: 4523145, level: "Asor", isChecked: true },
-                { id: 8763125, level: "Magrib", isChecked: true },
-                { id: 5258254, level: "Isha", isChecked: true },
-            ]
-          },
-          {
-              title: "Study",
-              todos: [
-                  { id: 1234744, level: "Accounting", isChecked: true },
-                  { id: 4523556, level: "Advanced Accounting", isChecked: true },
-                  { id: 4567652, level: "Asor", isChecked: true },
-                  { id: 7865455, level: "Magrib", isChecked: true },
-              ]  
-          }
-      ]
-   }
-  };
+  tasks: allTasks
+};
+
+const updateLocalStorage = (tasks) => {
+  localStorage.setItem('Todos', JSON.stringify(tasks));
+};
 
 const todoSlice = createSlice({
   name: 'todo',
@@ -59,6 +21,24 @@ const todoSlice = createSlice({
       } else {
         state.tasks[date] = action.payload[date];
       }
+
+      updateLocalStorage(state.tasks);
+    },
+    updateTask: (state, action) => {
+      const { id, date, title, todos } = action.payload;
+
+      const findTasks = state.tasks[date];
+
+      if (findTasks) {
+        const task = findTasks.find(task => task.id === id);
+
+        if (task) {
+          task.title = title;
+          task.todos = todos;
+        }
+      }
+
+      updateLocalStorage(state.tasks);
     },
     toggleCheckBox: (state, action) => {
       const { date, id } = action.payload;
@@ -71,9 +51,10 @@ const todoSlice = createSlice({
         });
       }
 
+      updateLocalStorage(state.tasks);
     }
   }
 })
 
-export const { setTasks, findTask, toggleCheckBox, updateTask } = todoSlice.actions;
+export const { setTasks, toggleCheckBox, updateTask } = todoSlice.actions;
 export default todoSlice.reducer;
