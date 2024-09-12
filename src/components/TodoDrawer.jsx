@@ -3,13 +3,16 @@ import { DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } f
 import CreateTodoForm from "./CreateTodoForm";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { setTasks, updateTask } from "@/store/todoSlice";
+import { deleteTask, setTasks, updateTask } from "@/store/todoSlice";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { ToastAction } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/use-toast";
 
 const TodoDrawer = ({ date, task }) => {
-  const [todos, setTodos] = useState(task?.todos || []);
   const dispatch = useDispatch();
+  const [todos, setTodos] = useState(task?.todos || []);
+  const { toast } = useToast();
 
   const { handleSubmit, reset, register, formState: { errors } } = useForm({
     defaultValues: {
@@ -44,6 +47,25 @@ const TodoDrawer = ({ date, task }) => {
     reset();
   };
 
+  const handleDeleteTask = () => {
+    toast({
+      variant: "destructive",
+      title: "Are you sure?",
+      description: "Do you really want to delete this task? This action is irreversible.",
+      bgColor: 'bg-red-500 border-none',
+      action: (
+        <ToastAction 
+          altText="Confirm delete" 
+          onClick={() => {
+            dispatch(deleteTask({ date, id: task.id }));
+          }}
+        >
+          Delete
+        </ToastAction>
+      ),
+    });
+  };
+
   return (
     <DrawerContent className="dark:text-white text-black flex flex-col min-h-[500px] mx-20 mb-10">
       <DrawerHeader>
@@ -51,16 +73,36 @@ const TodoDrawer = ({ date, task }) => {
       </DrawerHeader>
 
       <form onSubmit={handleSubmit(addTodos)} className="flex-grow">
-        <CreateTodoForm register={register} errors={errors} todos={todos} setTodos={setTodos} />
+        <CreateTodoForm 
+          register={register} 
+          errors={errors} 
+          todos={todos} 
+          setTodos={setTodos}
+        />
 
         <DrawerFooter className="mt-auto my-4">
           <div className="flex gap-4">
             <DrawerClose>
-              <Button type="submit" className="bg-black dark:bg-white">{task ? "Update" : "Submit"}</Button>
+              <Button type="submit">
+                {task ? "Update" : "Submit"}
+              </Button>
             </DrawerClose>
+            
+            {task &&
+              <DrawerClose>
+                <Button 
+                  className="dark:bg-red-500 dark:text-white"
+                  onClick={handleDeleteTask}
+                >
+                  Delete
+                </Button>
+              </DrawerClose>
+            }
 
             <DrawerClose>
-              <Button className="bg-black dark:bg-white">Cancel</Button>
+              <Button type="button">
+                Cancel
+              </Button>
             </DrawerClose>
           </div>
         </DrawerFooter>

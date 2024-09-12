@@ -6,13 +6,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from './ui/input';
 
 const CreateTodoForm = ({ register, errors, todos, setTodos }) => {
-    // Add a new todo field
     const addTodoBox = () => {
         const newTodo = { id: Date.now(), level: "", isChecked: false };
         setTodos(prevTodos => [...prevTodos, newTodo]);
     };
 
-    // Handle checkbox changes
     const handleCheckBox = (id) => {
         setTodos(prevTodos =>
             prevTodos.map(todo =>
