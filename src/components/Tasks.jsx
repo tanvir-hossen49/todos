@@ -1,8 +1,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { toggleCheckBox } from "@/store/todoSlice";
+import { lazy, Suspense } from "react";
 import { useDispatch } from 'react-redux';
-import DrawerComponent from "./DrawerComponent";
+
+const DrawerComponent = lazy(() => import("./DrawerComponent"));
 
 const Tasks = ({ task, date }) => {
     const dispatch = useDispatch();
@@ -10,7 +12,9 @@ const Tasks = ({ task, date }) => {
     return (
         <div key={task.title} className="mr-2">
             <div className="mb-4 rounded-[6px] p-2 bg-white dark:bg-[#2f2f2f]">
-                <DrawerComponent date={date} task={task}/>
+                <Suspense fallback={<div>loading...</div>}>
+                    <DrawerComponent date={date} task={task}/>
+                </Suspense>
 
                 {task.todos.map(todo => (
                     <div key={todo.id} className='flex mt-2 items-center space-x-2 w-full'>

@@ -2,8 +2,9 @@ import { lazy, Suspense } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import { formateDate } from "@/utilities/formateDate";
 import { useSelector } from "react-redux";
-import DrawerComponent from "./DrawerComponent";
+
 const Tasks = lazy(() => import("./Tasks"));
+const DrawerComponent = lazy(() => import("./DrawerComponent"));
 
 const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYear }) => {
   const tasks = useSelector((state) => state.todos);
@@ -34,7 +35,9 @@ const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYe
                 <>
                   <div className="flex justify-between items-center">
                     <div className="invisible group-hover:visible">
-                      <DrawerComponent date={formateDate(date.day, currentMonth + 1, currentYear)} />
+                      <Suspense fallback={<div>Loading...</div>}>
+                        <DrawerComponent date={formateDate(date.day, currentMonth + 1, currentYear)} />
+                      </Suspense>
                     </div>
 
                     <div className="ml-auto text-base">
