@@ -1,20 +1,21 @@
+import { lazy, Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
-import CreateTodoForm from "./CreateTodoForm";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { deleteTask, setTasks, updateTask } from "@/store/todoSlice";
-import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
+import { useToastHelper } from "@/utilities/showToastMsg";
+
+const CreateTodoForm = lazy(() => import('./CreateTodoForm'));
 
 const TodoDrawer = ({ date, task }) => {
+  const { showToastMsg } = useToastHelper();
   const dispatch = useDispatch();
   const [todos, setTodos] = useState(task?.todos || []);
-  const { toast } = useToast();
   
-  const { handleSubmit, reset, register, unregister, formState: { errors } } = useForm({
+  const { handleSubmit, reset, register, getValues, unregister, formState: { errors } } = useForm({
     defaultValues: {
       heading: task?.title || '', 
     }
@@ -48,7 +49,7 @@ const TodoDrawer = ({ date, task }) => {
   };
 
   const handleDeleteTask = () => {
-    toast({
+    showToastMsg({
       variant: "destructive",
       title: "Are you sure?",
       description: "Do you really want to delete this task? This action is irreversible.",
@@ -67,21 +68,25 @@ const TodoDrawer = ({ date, task }) => {
   };
 
   return (
-    <DrawerContent className="dark:text-white text-black flex flex-col min-h-[500px] mx-20 mb-10">
+    <DrawerContent className="min-h-[500px] mx-20 mb-10">
       <DrawerHeader>
         <DrawerTitle>{task ? "Edit Task" : "Create Todo"}</DrawerTitle>
       </DrawerHeader>
 
-      <form onSubmit={handleSubmit(addTodos)} className="flex-grow">
-        <CreateTodoForm 
-          register={register} 
-          unregister={unregister}
-          errors={errors} 
-          todos={todos}
-          setTodos={setTodos}
-        />
+      <form onSubmit={handleSubmit(addTodos)}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <CreateTodoForm 
+            register={register} 
+            unregister={unregister}
+            getValues={getValues}
+            showToastMsg={showToastMsg}
+            errors={errors} 
+            todos={todos}
+            setTodos={setTodos}
+          />
+        </Suspense>
 
-        <DrawerFooter className="mt-auto my-4">
+        <DrawerFooter className="my-4">
           <div className="flex gap-4">
             <DrawerClose>
               <Button type="submit">

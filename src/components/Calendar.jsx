@@ -1,16 +1,15 @@
+import { lazy, Suspense } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
-import CreateTodoDrawer from "./TodoDrawer";
 import { formateDate } from "@/utilities/formateDate";
-import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Drawer, DrawerContent, DrawerTrigger } from "./ui/drawer";
 import { Button } from "./ui/button";
 import { PlusIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTasks, toggleCheckBox } from "@/store/todoSlice";
-import { openDrawer } from "@/store/drawerSlice";
-import TodoDrawer from "./TodoDrawer";
+import { toggleCheckBox } from "@/store/todoSlice";
+
+const TodoDrawer = lazy(() => import('./TodoDrawer'));
 
 const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYear }) => {
   const dispatch = useDispatch();
@@ -44,12 +43,19 @@ const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYe
                     <div className="invisible group-hover:visible">
                       <Drawer>
                         <DrawerTrigger>
-                          <Button className="dark:bg-[#202020]" variant="outline" size="icon" aria-label="Create a new todo">
+                          <Button 
+                            className="dark:bg-[#202020]"
+                            variant="outline" 
+                            size="icon"
+                            aria-label="Create a new todo"
+                          >
                             <PlusIcon className="h-4 w-4" />
                           </Button>
                         </DrawerTrigger>
                         <DrawerContent>
-                          <TodoDrawer date={formateDate(date.day, currentMonth + 1, currentYear)} />
+                          <Suspense fallback={<div>Loading...</div>}>
+                            <TodoDrawer date={formateDate(date.day, currentMonth + 1, currentYear)} />
+                          </Suspense>
                         </DrawerContent>
                       </Drawer>
                     </div>
@@ -78,10 +84,12 @@ const Calendar = ({ weeksName, getWeekDays, currentDate, currentMonth, currentYe
                             </DrawerTrigger>
 
                             <DrawerContent>
-                              <TodoDrawer
-                                date={formateDate(date.day, currentMonth + 1, currentYear)}
-                                task={task}
-                              />
+                              <Suspense fallback={<div>Loading...</div>}>
+                                <TodoDrawer
+                                  date={formateDate(date.day, currentMonth + 1, currentYear)}
+                                  task={task}
+                                />
+                              </Suspense>
                             </DrawerContent>
                           </Drawer>
 

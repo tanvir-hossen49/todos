@@ -1,6 +1,7 @@
-import Calender from "../components/Calender";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+
+const Calendar = lazy(() => import('@/components/Calendar'));
 
 const Home = () => {
   const MONTH_NAMES = [
@@ -236,13 +237,15 @@ const Home = () => {
         </div>
       </div>
 
-      <Calender
-        weeksName={WEEKDAY_NAMES}
-        currentMonth={currentMonth}
-        currentDate={currentDate}
-        currentYear={currentYear}
-        getWeekDays={getWeekDays}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Calendar
+          weeksName={WEEKDAY_NAMES}
+          currentMonth={currentMonth}
+          currentDate={currentDate}
+          currentYear={currentYear}
+          getWeekDays={getWeekDays}
+        />
+      </Suspense>
     </div>
   );
 };
