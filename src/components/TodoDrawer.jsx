@@ -10,7 +10,7 @@ import { useToastHelper } from "@/utilities/showToastMsg";
 import { getSelectedDays } from "@/utilities/getSelectedDays";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
-const CreateTodoForm = lazy(() => import('./CreateTodoForm'));
+const TodoForm = lazy(() => import('./TodoForm'));
 
 const TodoDrawer = ({ date, task }) => {
   const { showToastMsg } = useToastHelper();
@@ -53,28 +53,26 @@ const TodoDrawer = ({ date, task }) => {
   const handleRepeatedTasks = (endDay) => {
     const data = getValues();
     const days = getSelectedDays(date, endDay); // startDay and EndDay
-    
-    const updatedTodos = todos.map((todo, index) => ({
-      ...todo,
-      id: uuidv4(),
-      level: data.todo[index],
-    }));
 
     days.forEach(date => {
-        const newTask = {
-          id: uuidv4(),
-          title: data.heading,
-          todos: updatedTodos
-        };
-        
-        const organizedData = {
-          [date]: [newTask]
-        };
-        
-        dispatch(setTasks(organizedData));
-      }
-    )
-    
+      const updatedTodos = todos.map((todo, index) => ({
+        ...todo,
+        id: uuidv4(),
+        level: data.todo[index],
+      }));
+
+      const newTask = {
+        id: uuidv4(),
+        title: data.heading,
+        todos: updatedTodos
+      };
+      
+      const organizedData = {
+        [date]: [newTask]
+      };
+      
+      dispatch(setTasks(organizedData));
+    })
   }
 
   const handleDeleteTask = () => {
@@ -104,7 +102,7 @@ const TodoDrawer = ({ date, task }) => {
 
       <form onSubmit={handleSubmit(addTodos)}>
         <Suspense fallback={<div>Loading...</div>}>
-          <CreateTodoForm 
+          <TodoForm 
             register={register} 
             unregister={unregister}
             getValues={getValues}

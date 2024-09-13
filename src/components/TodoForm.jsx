@@ -6,9 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from './ui/input';
 import { v4 as uuidv4 } from 'uuid';
 
-const CreateTodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos, setTodos }) => {
-
-
+const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos, setTodos }) => {
     const addTodoBox = () => {
         const newTodo = { id: uuidv4(), level: "", isChecked: false };
         setTodos(prevTodos => [...prevTodos, newTodo]);
@@ -125,4 +123,4 @@ const CreateTodoForm = ({ register, unregister, getValues, errors, showToastMsg,
     );
 };
 
-export default CreateTodoForm;
+export default TodoForm;

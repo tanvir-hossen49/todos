@@ -1,3 +1,4 @@
+import CalendarSkeleton from "@/components/Skeleton/CalendarSkeleton";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { lazy, Suspense, useEffect, useState } from "react";
 
@@ -237,7 +238,7 @@ const Home = () => {
         </div>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CalendarSkeleton />}>
         <Calendar
           weeksName={WEEKDAY_NAMES}
           currentMonth={currentMonth}
