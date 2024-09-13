@@ -4,10 +4,11 @@ import { Button } from './ui/button';
 import { Delete, Edit, Plus } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from './ui/input';
+import { v4 as uuidv4 } from 'uuid';
 
-const CreateTodoForm = ({ register, errors, todos, setTodos }) => {
+const CreateTodoForm = ({ register, unregister, errors, todos, setTodos }) => {
     const addTodoBox = () => {
-        const newTodo = { id: Date.now(), level: "", isChecked: false };
+        const newTodo = { id: uuidv4(), level: "", isChecked: false };
         setTodos(prevTodos => [...prevTodos, newTodo]);
     };
 
@@ -17,6 +18,12 @@ const CreateTodoForm = ({ register, errors, todos, setTodos }) => {
                 todo.id === id ? { ...todo, isChecked: !todo.isChecked } : todo
             )
         );
+    };
+
+    const deleteTodo = (id, index) => {
+        unregister(`todo[${index}]`); // Unregister todo input
+        unregister(`checkbox[${index}]`); // Unregister checkbox input
+        setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
     };
 
     return (
@@ -70,9 +77,8 @@ const CreateTodoForm = ({ register, errors, todos, setTodos }) => {
                             <Button
                                 className="p-2"
                                 variant="outline"
-                                onClick={() =>
-                                    setTodos(prevTodos => prevTodos.filter(t => t.id !== todo.id))
-                                }
+                                onClick={() => deleteTodo(todo.id, index)}
+
                             >
                                 <Delete />
                             </Button>

@@ -13,8 +13,8 @@ const TodoDrawer = ({ date, task }) => {
   const dispatch = useDispatch();
   const [todos, setTodos] = useState(task?.todos || []);
   const { toast } = useToast();
-
-  const { handleSubmit, reset, register, formState: { errors } } = useForm({
+  
+  const { handleSubmit, reset, register, unregister, formState: { errors } } = useForm({
     defaultValues: {
       heading: task?.title || '', 
     }
@@ -75,8 +75,9 @@ const TodoDrawer = ({ date, task }) => {
       <form onSubmit={handleSubmit(addTodos)} className="flex-grow">
         <CreateTodoForm 
           register={register} 
+          unregister={unregister}
           errors={errors} 
-          todos={todos} 
+          todos={todos}
           setTodos={setTodos}
         />
 
