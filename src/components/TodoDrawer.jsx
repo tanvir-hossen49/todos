@@ -7,6 +7,8 @@ import { deleteTask, setTasks, updateTask } from "@/store/todoSlice";
 import { v4 as uuidv4 } from 'uuid';
 import { ToastAction } from "@/components/ui/toast";
 import { useToastHelper } from "@/utilities/showToastMsg";
+import { getSelectedDays } from "@/utilities/getSelectedDays";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
 const CreateTodoForm = lazy(() => import('./CreateTodoForm'));
 
@@ -48,6 +50,33 @@ const TodoDrawer = ({ date, task }) => {
     reset();
   };
 
+  const handleRepeatedTasks = (endDay) => {
+    const data = getValues();
+    const days = getSelectedDays(date, endDay); // startDay and EndDay
+    
+    const updatedTodos = todos.map((todo, index) => ({
+      ...todo,
+      id: uuidv4(),
+      level: data.todo[index],
+    }));
+
+    days.forEach(date => {
+        const newTask = {
+          id: uuidv4(),
+          title: data.heading,
+          todos: updatedTodos
+        };
+        
+        const organizedData = {
+          [date]: [newTask]
+        };
+        
+        dispatch(setTasks(organizedData));
+      }
+    )
+    
+  }
+
   const handleDeleteTask = () => {
     showToastMsg({
       variant: "destructive",
@@ -86,7 +115,7 @@ const TodoDrawer = ({ date, task }) => {
           />
         </Suspense>
 
-        <DrawerFooter className="my-4">
+        <DrawerFooter className="my-3">
           <div className="flex gap-4">
             <DrawerClose>
               <Button type="submit">
@@ -104,6 +133,31 @@ const TodoDrawer = ({ date, task }) => {
                 </Button>
               </DrawerClose>
             }
+
+            <DropdownMenu className="w-full">
+              <DropdownMenuTrigger>
+                <Button type="button">
+                  Add This Task Next
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DrawerClose>
+                <DropdownMenuContent align="center" 
+                  className="bg-white text-black"
+                >
+                  {[3,7,30].map(day => 
+                    <DropdownMenuItem 
+                      onClick={() => handleRepeatedTasks(day)}
+                      className="hover:bg-orange-100 p-1"
+                    >
+                      {day} Days
+                    </DropdownMenuItem>
+                    
+                  )}
+                </DropdownMenuContent>
+              </DrawerClose>
+
+            </DropdownMenu>
 
             <DrawerClose>
               <Button type="button">
