@@ -20,6 +20,21 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
         );
     };
 
+    const handleAddProperty = () => {
+        const heading = getValues("heading");
+        const todo = getValues("todo") || [];
+
+        if(heading !== "" && todo[todo.length - 1] !== "") {
+            addTodoBox()
+        } else{
+            showToastMsg({
+                title: "Something went wrong",
+                description: "The input field can't be empty",
+                bgColor: 'bg-red-500 border-none',
+            })
+        }
+    }
+
     const handleBlur = (event) => {
         if (event.key === "Enter") {
             event.target.blur();
@@ -100,20 +115,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                 <Button
                     className="px-2 py-1 flex gap-2 dark:bg-transparent mb-0"
                     variant="outline"
-                    onClick={() => {
-                        const heading = getValues("heading");
-                        const todo = getValues("todo") || [];
-
-                        if(heading !== "" && todo[todo.length - 1] !== "") {
-                            addTodoBox()
-                        } else{
-                            showToastMsg({
-                                title: "Something went wrong",
-                                description: "The input field can't be empty",
-                                bgColor: 'bg-red-500 border-none',
-                            })
-                        }
-                    }}
+                    onClick={handleAddProperty}
                 >
                     <Plus />
                     <span>Add a property</span>

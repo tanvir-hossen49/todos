@@ -6,7 +6,7 @@ import { PlusIcon } from "lucide-react";
 const TodoDrawer = lazy(() => import('./TodoDrawer'));
 
 const DrawerComponent = ({ date, task }) => {
-    
+
   return (
     <Drawer>
       <DrawerTrigger>

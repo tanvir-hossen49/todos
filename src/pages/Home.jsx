@@ -11,7 +11,7 @@ const Calendar = lazy(() => import('@/components/Calendar'));
 const Home = () => {
   const dispatch = useDispatch();
   
-  const { startOfWeek, currentDate } = useSelector((state) => state.calendar);
+  const { startOfWeek } = useSelector((state) => state.calendar);
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(startOfWeek, i));
 
@@ -58,10 +58,7 @@ const Home = () => {
       </div>
 
       <Suspense fallback={<CalendarSkeleton />}>
-        <Calendar
-          currentDate={currentDate}
-          days={days}
-        />
+        <Calendar days={days} />
       </Suspense>
     </div>
   );
