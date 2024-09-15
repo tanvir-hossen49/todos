@@ -2,13 +2,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import themeReducer from './themeSlice';
 import todoReducer from './todoSlice';
-import drawerReducer from './drawerSlice';
+import calendarReducer from './calendarSlice';
 
 const store = configureStore({
   reducer: {
     theme: themeReducer,
     todos: todoReducer,
-    drawer: drawerReducer,
+    calendar: calendarReducer,
   },
 });
 
