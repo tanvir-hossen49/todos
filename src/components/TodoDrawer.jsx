@@ -145,12 +145,12 @@ const TodoDrawer = ({ date, task }) => {
                 >
                   {[3,7,30].map(day => 
                     <DropdownMenuItem 
+                      key={day}
                       onClick={() => handleRepeatedTasks(day)}
                       className="hover:bg-orange-100 p-1"
                     >
                       {day} Days
                     </DropdownMenuItem>
-                    
                   )}
                 </DropdownMenuContent>
               </DrawerClose>

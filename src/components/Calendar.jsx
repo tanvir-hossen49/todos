@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
+
 import TasksSkeleton from "./Skeleton/TasksSkeleton";
 import DrawerComponent from "./DrawerComponent";
 
@@ -43,57 +44,58 @@ const Calendar = ({ days }) => {
     return <div>{formatDayLabel(day)}</div>;
   };
 
+  
   return (
     <div className="mt-5">
-      <Table className="w-full">
-        <TableHeader className="sticky top-0 dark:bg-[#1a1a1a] dark:text-[#ffffff70] z-10">
-          <TableRow>
-            {WEEKDAY_NAMES.map((name) => (
-              <TableHead key={name} className="text-center">
-                {name}
-              </TableHead>  
-            ))}
-          </TableRow>
-        </TableHeader>
+        <Table className="w-full">
+          <TableHeader className="sticky top-0 dark:bg-[#1a1a1a] dark:text-[#ffffff70] z-10">
+            <TableRow>
+              {WEEKDAY_NAMES.map((name) => (
+                <TableHead key={name} className="text-center">
+                  {name}
+                </TableHead>  
+              ))}
+            </TableRow>
+          </TableHeader>
 
-        <TableBody>
-          <TableRow className="h-[calc(100vh-70px)]">
-            {days.map((day) => {
-              const formattedDate = format(day, 'd-M-yyyy');
+          <TableBody>
+            <TableRow className="h-[calc(100vh-70px)]">
+              {days.map((day) => {
+                const formattedDate = format(day, 'd-M-yyyy');
 
-              return (
-              <TableCell
-                key={formattedDate}
-                className="h-full align-top p-2 group" 
-                style={{ width: `${100 / 7}%` }}
-              >
-                <>
-                  <div className="flex justify-between items-center">
-                    <div className="invisible group-hover:visible">
-                      <DrawerComponent date={formattedDate} />
+                return (
+                <TableCell
+                  key={formattedDate}
+                  className="h-full align-top p-2 group" 
+                  style={{ width: `${100 / 7}%` }}
+                >
+                  <>
+                    <div className="flex justify-between items-center">
+                      <div className="invisible group-hover:visible">
+                        <DrawerComponent date={formattedDate} />
+                      </div>
+
+                      <div className="ml-auto text-base">
+                        {renderDateLabel(day)} 
+                      </div>
                     </div>
 
-                    <div className="ml-auto text-base">
-                      {renderDateLabel(day)} 
+                    <div>
+                      {findTaskForDate(formattedDate).map((task, index) => (
+                        <Suspense key={index} fallback={<TasksSkeleton />}>
+                          <Tasks 
+                            task={task}
+                            date={formattedDate}
+                          />
+                        </Suspense>
+                      ))}
                     </div>
-                  </div>
-
-                  <div>
-                    {findTaskForDate(formattedDate).map((task, index) => (
-                      <Suspense key={index} fallback={<TasksSkeleton />}>
-                        <Tasks 
-                          task={task}
-                          date={formattedDate}
-                        />
-                      </Suspense>
-                    ))}
-                  </div>
-                </>
-              </TableCell>
-            )})}
-          </TableRow>
-        </TableBody>
-      </Table>
+                  </>
+                </TableCell>
+              )})}
+            </TableRow>
+          </TableBody>
+        </Table>
     </div>
   );
 };

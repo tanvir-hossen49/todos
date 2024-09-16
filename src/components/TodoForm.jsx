@@ -89,15 +89,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                             />
                         </div>
 
-                        <div className='flex w-1/6 items-center justify-end gap-x-3'>
-                            <Button
-                                className="p-2"
-                                variant="outline"
-                                onClick={() => {/* Edit handler logic */}}
-                            >
-                                <Edit />
-                            </Button>
-
+                        <div className='mr-3'>
                             <Button
                                 className="p-2"
                                 variant="outline"
