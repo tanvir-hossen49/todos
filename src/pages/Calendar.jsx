@@ -1,18 +1,22 @@
 import { lazy, Suspense } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import { useSelector } from "react-redux";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
+import TasksSkeleton from "@/components/Skeleton/TasksSkeleton";
+import DrawerComponent from "@/components/DrawerComponent";
 
-import TasksSkeleton from "./Skeleton/TasksSkeleton";
-import DrawerComponent from "./DrawerComponent";
-
-const Tasks = lazy(() => import("./Tasks"));
+const Tasks = lazy(() => import("@/components/Tasks"));
 
 const WEEKDAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const Calendar = ({ days }) => {
+const Calendar = () => {
   const tasks = useSelector((state) => state.todos);
+
+  const { startOfWeek } = useSelector((state) => state.calendar);
+
   const currentDate = new Date();
+
+  const days = Array.from({ length: 7 }, (_, i) => addDays(startOfWeek, i));
 
   const findTaskForDate = (date) => tasks.tasks[date] || [];
   

@@ -43,3 +43,14 @@
 table tr td {
   border: 2px solid rgb(47, 47, 47);
 }
+
+/* Light Theme */
+.light .recharts-layer text {
+  fill: #333333 !important; /* Dark Gray */
+}
+
+/* Dark Theme */
+.dark .recharts-layer text {
+  fill: #FFFFFF !important; /* White */
+}
+

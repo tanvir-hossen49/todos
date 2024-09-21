@@ -2,8 +2,11 @@ import { CheckCircle } from "lucide-react";
 import { ModeToggle } from "../components/ModeToggle";
 import { Outlet } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
+import WeekNavigator from "@/components/WeekNavigator";
 
 const MainLayout = () => {
+  
+
   return (
     <>
       <nav className="flex justify-between">
@@ -15,6 +18,9 @@ const MainLayout = () => {
         </div>
         <ModeToggle />
       </nav>
+
+      <WeekNavigator />
+
       <section>
         <Outlet />
       </section>

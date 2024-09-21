@@ -55,6 +55,14 @@ const todoSlice = createSlice({
 
       localStorage.setItem('Todos', JSON.stringify(state.tasks));
     },
+    deleteTasksForRange: (state, action) => {
+      const { start, end } = action.payload;
+      for (let i = start; i <= end; i++) {
+        delete state.tasks[`${i}-10-2024`];
+      }
+
+      localStorage.setItem('Todos', JSON.stringify(state.tasks));
+    },
     toggleCheckBox: (state, action) => {
       const { date, id } = action.payload;
       const targetedTask = state.tasks[date];
@@ -71,5 +79,5 @@ const todoSlice = createSlice({
   }
 })
 
-export const { setTasks, toggleCheckBox, updateTask, deleteTask } = todoSlice.actions;
+export const { setTasks, toggleCheckBox, updateTask, deleteTask, deleteTasksForRange } = todoSlice.actions;
 export default todoSlice.reducer;
