@@ -1,9 +1,10 @@
 import { lazy, Suspense } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import { useSelector } from "react-redux";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 import TasksSkeleton from "@/components/Skeleton/TasksSkeleton";
 import DrawerComponent from "@/components/DrawerComponent";
+import useWeekDays from "@/hooks/useWeekDays";
 
 const Tasks = lazy(() => import("@/components/Tasks"));
 
@@ -11,12 +12,9 @@ const WEEKDAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const Calendar = () => {
   const tasks = useSelector((state) => state.todos);
-
-  const { startOfWeek } = useSelector((state) => state.calendar);
+  const weekDays = useWeekDays();
 
   const currentDate = new Date();
-
-  const days = Array.from({ length: 7 }, (_, i) => addDays(startOfWeek, i));
 
   const findTaskForDate = (date) => tasks.tasks[date] || [];
   
@@ -38,7 +36,7 @@ const Calendar = () => {
     if (isCurrentDate(day)) {
       return (
         <div 
-          className="flex justify-center items-center w-7 h-7 bg-white 
+          className="flex justify-center items-center w-6 h-6 bg-white 
           dark:bg-[#b15a27] rounded-full"
         >
           {format(day, 'd')}
@@ -64,7 +62,7 @@ const Calendar = () => {
 
           <TableBody>
             <TableRow className="h-[calc(100vh-70px)]">
-              {days.map((day) => {
+              {weekDays.map((day) => {
                 const formattedDate = format(day, 'd-M-yyyy');
 
                 return (
@@ -79,7 +77,7 @@ const Calendar = () => {
                         <DrawerComponent date={formattedDate} />
                       </div>
 
-                      <div className="ml-auto text-base">
+                      <div className="ml-auto text-sm">
                         {renderDateLabel(day)} 
                       </div>
                     </div>

@@ -11,7 +11,7 @@ const DrawerComponent = ({ date, task }) => {
     <Drawer>
       <DrawerTrigger>
         {task ? (
-            <h3>{task.title}</h3>
+            <h3 className="font-semibold">{task.title}</h3>
         ) : (
             <Button
                 className="dark:bg-[#202020]"

@@ -1,12 +1,13 @@
 import { CheckCircle } from "lucide-react";
 import { ModeToggle } from "../components/ModeToggle";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
-import WeekNavigator from "@/components/WeekNavigator";
+import { lazy, Suspense } from "react";
+import WeekNavigatorSkeleton from "@/components/Skeleton/WeekNavigatorSkeleton";
+
+const WeekNavigator = lazy(() => import("@/components/WeekNavigator"));
 
 const MainLayout = () => {
-  
-
   return (
     <>
       <nav className="flex justify-between">
@@ -14,12 +15,14 @@ const MainLayout = () => {
           <span>
             <CheckCircle />
           </span>
-          <h1 className="text-3xl font-bold">Track Your Activity</h1>
+          <Link to="/" className="text-3xl font-bold">Track Your Activities</Link>
         </div>
         <ModeToggle />
       </nav>
-
-      <WeekNavigator />
+      
+      <Suspense fallback={<WeekNavigatorSkeleton />}>
+        <WeekNavigator />
+      </Suspense>
 
       <section>
         <Outlet />

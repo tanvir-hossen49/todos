@@ -1,56 +1,59 @@
+import useWeekDays from '@/hooks/useWeekDays';
 import { goToToday, nextWeek, prevWeek } from '@/store/calendarSlice';
-import { addDays, format } from 'date-fns';
+import { format } from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const WeekNavigator = () => {
   const dispatch = useDispatch();
-  
-  const { startOfWeek } = useSelector((state) => state.calendar);
-  const days = Array.from({ length: 7 }, (_, i) => addDays(startOfWeek, i));
+  const weekDays = useWeekDays();
 
-  const firstDay = days[0];
-  const lastDay = days[6];
+  const firstDay = weekDays[0];
+  const lastDay = weekDays[6];
 
   const firstMonth = format(firstDay, 'MMMM');
   const lastMonth = format(lastDay, 'MMMM');
   const firstYear = format(firstDay, 'yyyy');
   const lastYear = format(lastDay, 'yyyy');
 
-  // Logic to show the title like 'September - October 2024'
-  const monthTitle = firstMonth === lastMonth
-    ? `${firstMonth} ${firstYear}`
-    : `${firstMonth} - ${lastMonth} ${firstYear === lastYear ? firstYear : `${firstYear} - ${lastYear}`}`;
+  let monthTitle = '';
 
+  if (firstMonth === lastMonth && firstYear === lastYear) {
+    monthTitle = `${firstMonth} ${firstYear}`;
+  } else if (firstYear === lastYear) {
+    monthTitle = `${firstMonth} - ${lastMonth} ${firstYear}`;
+  } else {
+    monthTitle = `${firstMonth} ${firstYear} - ${lastMonth} ${lastYear}`;
+  }
 
-    return (
-        <div className="flex items-center justify-between">
+  return (
+      <div className="flex items-center justify-between my-4">
+        <span>
+          <h2>{monthTitle}</h2>
+        </span>
+        <div className="flex items-center gap-3 select-none">
           <span>
-            <h2>{monthTitle}</h2>
+            <ChevronLeft
+              className="cursor-pointer"
+              onClick={() => dispatch(prevWeek())}
+            />
           </span>
-          <div className="flex items-center gap-3 select-none">
-            <span>
-              <ChevronLeft
-                className="cursor-pointer"
-                onClick={() => dispatch(prevWeek())}
-              />
-            </span>
-            <span
-              className="cursor-pointer" 
-              onClick={() => dispatch(goToToday())}
-            >
-              Today
-            </span>
-            <span>
-              <ChevronRight
-                className="cursor-pointer"
-                onClick={() => dispatch(nextWeek())}
-              />
-            </span>
-          </div>
-      </div>
-    );
+          <span
+            className="cursor-pointer" 
+            onClick={() => dispatch(goToToday())}
+          >
+            Today
+          </span>
+          <span>
+            <ChevronRight
+              className="cursor-pointer"
+              onClick={() => dispatch(nextWeek())}
+            />
+          </span>
+        </div>
+    </div>
+  );
 };
 
 export default WeekNavigator;
