@@ -69,11 +69,11 @@ const Calendar = () => {
                 <TableCell
                   key={formattedDate}
                   className="h-full align-top p-2 group" 
-                  style={{ width: `${100 / 7}%` }}
+                  style={{ width: `${100 / 7}%`}}
                 >
                   <>
                     <div className="flex justify-between items-center">
-                      <div className="invisible group-hover:visible">
+                      <div className="md:invisible group-hover:visible">
                         <DrawerComponent date={formattedDate} />
                       </div>
 

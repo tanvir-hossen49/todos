@@ -9,7 +9,7 @@ const Chart = () => {
             </h1>
 
 
-            <div  className="flex justify-center items-center">
+            <div className="md:flex justify-center items-center">
                 <BarChartComponent />
                 <PieChartComponent />
             </div>

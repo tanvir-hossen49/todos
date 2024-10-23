@@ -52,6 +52,9 @@ const TodoDrawer = ({ date, task }) => {
 
   const handleRepeatedTasks = (endDay) => {
     const data = getValues();
+
+    if(data.heading === '') return
+
     const days = getSelectedDays(date, endDay); // startDay and EndDay
 
     days.forEach(date => {
@@ -95,9 +98,9 @@ const TodoDrawer = ({ date, task }) => {
   };
 
   return (
-    <DrawerContent className="min-h-[500px] mx-20 mb-10">
+    <DrawerContent className="md:min-h-[500px] min-h-[600px] md:mx-20 mx-5 mb-10">
       <DrawerHeader>
-        <DrawerTitle>{task ? "Edit Task" : "Create Todo"}</DrawerTitle>
+        <DrawerTitle> {task ? "Edit Task" : "Create Todo"} </DrawerTitle>
       </DrawerHeader>
 
       <form onSubmit={handleSubmit(addTodos)}>
@@ -113,8 +116,8 @@ const TodoDrawer = ({ date, task }) => {
           />
         </Suspense>
 
-        <DrawerFooter className="my-3">
-          <div className="flex gap-4">
+        <DrawerFooter>
+          <div className="flex flex-row flex-wrap gap-2 w-full items-start">
             <DrawerClose>
               <Button type="submit">
                 {task ? "Update" : "Submit"}
@@ -154,11 +157,10 @@ const TodoDrawer = ({ date, task }) => {
                   )}
                 </DropdownMenuContent>
               </DrawerClose>
-
             </DropdownMenu>
 
             <DrawerClose>
-              <Button type="button">
+              <Button>
                 Cancel
               </Button>
             </DrawerClose>

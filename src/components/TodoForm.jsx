@@ -53,7 +53,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                 label='textarea'
                 rows={1}
                 placeholder='Heading Of Your Task'
-                className="w-full h-auto text-3xl font-bold overflow-hidden p-2 focus:outline-none focus:ring-0"
+                className="w-full h-auto text-xl md:text-3xl font-bold overflow-hidden p-2 focus:outline-none focus:ring-0"
                 type='text'
                 onKeyDown={(e) => handleBlur(e)}
                 {...register('heading', {
@@ -70,7 +70,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
             <div  className='ml-2 my-4 overflow-auto max-h-[190px] custom-scrollbar'>
                 {todos.map((todo, index) => (
                     <div key={todo.id} className='flex items-center justify-between mt-2'>
-                        <div className="flex items-center space-x-2 w-5/6">
+                        <div className="flex items-center space-x-2 md:w-5/6">
                             <Checkbox
                                 checked={todo.isChecked}
                                 onClick={() => handleCheckBox(todo.id)}
@@ -78,7 +78,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                             />
                             <Input
                                 type="text"
-                                className="p-1 text-base border-1 border-b dark:border-b-white border-b-black outline-none bg-transparent w-1/2"
+                                className="p-1 text-base border-1 border-b dark:border-b-white border-b-black outline-none bg-transparent w-full md:w-1/2"
                                 {...register(`todo[${index}]`, {
                                     required: true
                                 })}
@@ -89,7 +89,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                             />
                         </div>
 
-                        <div className='mr-3'>
+                        <div className='md:mr-3 mr-1'>
                             <Button
                                 className="p-2"
                                 variant="outline"

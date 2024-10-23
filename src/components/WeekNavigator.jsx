@@ -4,8 +4,12 @@ import { format } from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 
 const WeekNavigator = () => {
+  const { pathname } = useLocation();
+  console.log(pathname);
+  
   const dispatch = useDispatch();
   const weekDays = useWeekDays();
 
@@ -32,25 +36,33 @@ const WeekNavigator = () => {
         <span>
           <h2>{monthTitle}</h2>
         </span>
-        <div className="flex items-center gap-3 select-none">
-          <span>
-            <ChevronLeft
-              className="cursor-pointer"
-              onClick={() => dispatch(prevWeek())}
-            />
-          </span>
-          <span
-            className="cursor-pointer" 
-            onClick={() => dispatch(goToToday())}
-          >
-            Today
-          </span>
-          <span>
-            <ChevronRight
-              className="cursor-pointer"
-              onClick={() => dispatch(nextWeek())}
-            />
-          </span>
+        <div className="flex md:flex-row flex-col-reverse items-center gap-3 select-none">
+          <div className='bg-blue-400 px-2 py-1'>
+            <Link to={`${pathname  === '/' ? "/chart" : "/" }`}>
+            {pathname === '/' ? "Analysis" : "Calendar"}
+            </Link>
+          </div>
+          
+          <div className='flex items-center gap-3 select-none'>
+            <span>
+              <ChevronLeft
+                className="cursor-pointer"
+                onClick={() => dispatch(prevWeek())}
+              />
+            </span>
+            <span
+              className="cursor-pointer" 
+              onClick={() => dispatch(goToToday())}
+            >
+              Today
+            </span>
+            <span>
+              <ChevronRight
+                className="cursor-pointer"
+                onClick={() => dispatch(nextWeek())}
+              />
+            </span>
+          </div>
         </div>
     </div>
   );

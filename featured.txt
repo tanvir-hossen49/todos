@@ -1,3 +1,4 @@
 # Add analysis page
-# Add backend
+# Add back-end
+# Add hamburger
 # Responsive

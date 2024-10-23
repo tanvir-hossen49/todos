@@ -15,7 +15,7 @@ const MainLayout = () => {
           <span>
             <CheckCircle />
           </span>
-          <Link to="/" className="text-3xl font-bold">Track Your Activities</Link>
+          <Link to="/" className="text-xl md:text-3xl font-bold">Track Your Activities</Link>
         </div>
         <ModeToggle />
       </nav>
