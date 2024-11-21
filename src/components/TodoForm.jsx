@@ -78,7 +78,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                             />
                             <Input
                                 type="text"
-                                className="p-1 text-base border-1 border-b dark:border-b-white border-b-black outline-none bg-transparent w-full md:w-1/2"
+                                className="p-1 text-base border-1 border-b dark:border-b-white border-b-black outline-none bg-transparent w-full md:w-3/2"
                                 {...register(`todo[${index}]`, {
                                     required: true
                                 })}

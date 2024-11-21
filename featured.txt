@@ -1,4 +1,0 @@
-# Add analysis page
-# Add back-end
-# Add hamburger
-# Responsive
