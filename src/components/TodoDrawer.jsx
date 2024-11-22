@@ -10,6 +10,7 @@ import { useToastHelper } from "@/utilities/showToastMsg";
 import { getSelectedDays } from "@/utilities/getSelectedDays";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { addDays, format } from "date-fns";
+import BorderAccording from "./SelectModel/BorderAccording";
 
 const TodoForm = lazy(() => import("./TodoForm"));
 
@@ -26,6 +27,23 @@ const TodoDrawer = ({ date, task }) => {
     unregister, 
     formState: { errors } 
   } = useForm({ defaultValues: { heading: task?.title || "" } });
+
+  const model = {
+    "Namaz": {
+    todos: [
+        { id: 1234234, level: "Faza", isChecked: true },
+        { id: 2342345, level: "Zohor", isChecked: true },
+        { id: 1234532, level: "Asor", isChecked: true },
+        { id: 4564534, level: "Magrib", isChecked: true },
+    ]},
+    "BBA 2nd Year": {
+    todos: [
+        { id: 1234234, level: "Faza", isChecked: true },
+        { id: 2342345, level: "Zohor", isChecked: true },
+        { id: 1234532, level: "Asor", isChecked: true },
+        { id: 4564534, level: "Magrib", isChecked: true },
+    ]},
+  }
 
   const handleAddOrUpdateTask = (data) => {
     const updatedTodos = todos.map((todo, index) => ({
@@ -173,11 +191,17 @@ const TodoDrawer = ({ date, task }) => {
         </div>
 
         {/* Right Section */}
-        <div className="flex-1">
-          <DrawerHeader>
-            <DrawerTitle className="underline decoration-wavy">Select Your Model</DrawerTitle>
-          </DrawerHeader>
-        </div>
+        {!task && 
+          <div className="flex-1">
+            <DrawerHeader>
+              <DrawerTitle className="underline decoration-wavy">Select Your Model</DrawerTitle>
+
+              <div className="mt-4 font-semibold space-y-2">
+                <BorderAccording />
+              </div>
+            </DrawerHeader>
+          </div>
+        }
       </div>
     </DrawerContent>
   );
