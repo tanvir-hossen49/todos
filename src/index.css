@@ -31,17 +31,17 @@
 }
 
 .dark {
-  background-color: #191919;
+  background-color: #132a2a;
   color: #ffffffcf;
 }
 
 .light {
-  background-color: #e5e5e5;
+  background-color: #CDE8E5;
   color: #000;
 }
 
 table tr td {
-  border: 2px solid rgb(47, 47, 47);
+  border: 1px solid #38443a;
 }
 
 /* Light Theme */

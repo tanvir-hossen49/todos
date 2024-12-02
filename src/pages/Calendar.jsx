@@ -50,7 +50,7 @@ const Calendar = () => {
   return (
     <div className="mt-5">
         <Table className="w-full">
-          <TableHeader className="sticky top-0 dark:bg-[#1a1a1a] dark:text-[#ffffff70] z-10">
+          <TableHeader className="sticky top-0 z-10">
             <TableRow>
               {WEEKDAY_NAMES.map((name) => (
                 <TableHead key={name} className="text-center">
@@ -72,7 +72,7 @@ const Calendar = () => {
                   style={{ width: `${100 / 7}%`}}
                 >
                   <>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center ">
                       <div className="md:invisible group-hover:visible">
                         <DrawerComponent date={formattedDate} />
                       </div>
