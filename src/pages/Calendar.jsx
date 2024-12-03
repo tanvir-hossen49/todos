@@ -72,11 +72,13 @@ const Calendar = () => {
                   style={{ width: `${100 / 7}%`}}
                 >
                   <>
-                    <div className="flex justify-between items-center ">
-                      <div className="md:invisible group-hover:visible">
+                    <div className="flex justify-between items-center">
+                      <div
+                        className="md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300"
+                        tabIndex={0}
+                      >
                         <DrawerComponent date={formattedDate} />
                       </div>
-
                       <div className="ml-auto text-sm">
                         {renderDateLabel(day)} 
                       </div>

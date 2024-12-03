@@ -1,9 +1,9 @@
 import { CheckCircle } from "lucide-react";
-import { ModeToggle } from "../components/ModeToggle";
 import { Link, Outlet } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { lazy, Suspense } from "react";
 import WeekNavigatorSkeleton from "@/components/Skeleton/WeekNavigatorSkeleton";
+import ModeToggle from "@/components/ModeToggle";
 
 const WeekNavigator = lazy(() => import("@/components/WeekNavigator"));
 

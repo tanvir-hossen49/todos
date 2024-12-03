@@ -1,7 +1,7 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import Calendar from "@/pages/Calendar";
-import { lazy, Suspense } from "react";
+const Calendar = lazy(() => import("@/pages/Calendar"));
 import Loader from "@/components/Loader";
 const Chart = lazy(() => import("@/pages/Chart"));
 
@@ -12,7 +12,9 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Calendar />,
+        element: <Suspense fallback={<Loader />}>
+          <Calendar />
+        </Suspense>,
       },
       {
         path: "/chart",

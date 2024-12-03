@@ -38,7 +38,7 @@ const BorderAccording = () => {
   return (
     <div className="flex gap-3 flex-col w-full">
       {accordingData?.map((according, index) => (
-        <article key={index} className="border border-[#e5eaf2] rounded p-3">
+        <article key={index} className="border dark:border-[#e5eaf2] border-black rounded p-3">
           <div
             className="flex gap-2 cursor-pointer items-center justify-between w-full"
             onClick={() => handleBorderClick(index)}>
@@ -47,7 +47,7 @@ const BorderAccording = () => {
             </h2>
             <p>
               <Plus
-                className={`text-[1.3rem] text-[#424242] transition-all duration-300 ${
+                className={`text-[1.3rem] transition-all duration-300 ${
                   isAccordingOpen === index && "rotate-[45deg] !text-[#3B9DF8]"
                 }`}
               />
@@ -66,7 +66,7 @@ const BorderAccording = () => {
                     ))}
                   </ul>
 
-                  <Button className="mt-2 ">Select Model</Button>
+                  <Button className="mt-2" aria-label="select model">Select Model</Button>
                 </div>
           </div>
         </article>

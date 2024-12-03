@@ -19,23 +19,27 @@ const Tasks = ({ task, date }) => {
         <DrawerComponent date={date} task={task} />
 
         {task.todos.map(({ id, isChecked, level }) => (
-          <div key={id} className="flex mt-2 items-center space-x-2 w-full">
-            <div className={`w-4 h-4 border-2 rounded
-              ${isChecked ? "bg-green-800 border-green-500" : "border-red-500"}
+          <div 
+            key={id} 
+            className="flex mt-2 items-center space-x-2 w-full"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && handleCheckboxClick(id)}
+            onClick={() => handleCheckboxClick(id)}
+          >
+            <div 
+              role="checkbox"
+              aria-label="checkbox"
+              aria-checked={isChecked}
+              id={id}
+              className={`w-5 h-[18px] border-2 rounded
+              ${isChecked ? "bg-green-500 border-green-500" : "border-red-500"}
               transition-colors duration-300`}
             >
-              <Checkbox
-                id={id}
-                checked={isChecked}
-                onClick={() => handleCheckboxClick(id)}
-                className="cursor-pointer opacity-0"
-              />
             </div>
-
-
-            <Label htmlFor={id} className="cursor-pointer font-normal w-full">
+            
+            <div className="cursor-pointer font-normal w-full" >
               {level}
-            </Label>
+            </div>
           </div>
         ))}
       </div>

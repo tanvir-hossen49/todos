@@ -14,12 +14,13 @@ const DrawerComponent = ({ date, task }) => {
             <h3 className="font-semibold">{task.title}</h3>
         ) : (
             <Button
+                tabIndex={-1}
                 className="mr-3 mb-1 bg-[#aee3dc] dark:bg-[#1a4747]"
                 variant="outline" 
                 size="icon"
                 aria-label="Create a new todo"
             >
-                <PlusIcon className="h-4 w-4" />
+                <PlusIcon className="h-4 w-4"/>
             </Button>
         )}
       </DrawerTrigger>

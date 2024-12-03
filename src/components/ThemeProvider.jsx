@@ -1,4 +1,3 @@
-// src/ThemeProvider.js
 import React, { createContext, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTheme } from '@/store/themeSlice';

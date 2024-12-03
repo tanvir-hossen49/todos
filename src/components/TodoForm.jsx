@@ -93,8 +93,8 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                             <Button
                                 className="p-2"
                                 variant="outline"
+                                aria-label="delete todo"
                                 onClick={() => deleteTodo(todo.id, index)}
-
                             >
                                 <Delete />
                             </Button>
@@ -107,6 +107,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                 <Button
                     className="px-2 py-1 flex gap-2 dark:bg-transparent mb-0"
                     variant="outline"
+                    aria-label="add a property"
                     onClick={handleAddProperty}
                 >
                     <Plus />

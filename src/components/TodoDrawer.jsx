@@ -120,7 +120,7 @@ const TodoDrawer = ({ date, task }) => {
   const Dropdown = () => (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button type="button">Add This Task Next</Button>
+        <Button type="button" aria-label="add this task next">Add This Task Next</Button>
       </DropdownMenuTrigger>
 
       <DrawerClose>
@@ -142,13 +142,14 @@ const TodoDrawer = ({ date, task }) => {
   const ActionButtons = () => (
     <div className="flex flex-row flex-wrap gap-2 w-full items-start">
       <DrawerClose>
-        <Button type="submit">{task ? "Update" : "Submit"}</Button>
+        <Button type="submit" aria-label="submit">{task ? "Update" : "Submit"}</Button>
       </DrawerClose>
       {task && (
         <DrawerClose>
           <Button 
             className="dark:bg-red-500 dark:text-white" 
             onClick={handleDeleteTask}
+            aria-label="delete task"
           >
             Delete
           </Button>
@@ -156,16 +157,16 @@ const TodoDrawer = ({ date, task }) => {
       )}
       <Dropdown />
       <DrawerClose>
-        <Button>Cancel</Button>
+        <Button aria-label="cancel">Cancel</Button>
       </DrawerClose>
     </div>
   );
 
   return (
-    <DrawerContent className="md:min-h-[500px] min-h-[600px] md:mx-20 mx-5 mb-10">
+    <DrawerContent className="md:min-h-[500px] min-h-[600px] md:mx-20 mx-5 mb-10 dark:border-white border-black">
       <div className="md:flex justify-between flex-1">
         {/* Left Section */}
-        <div className="flex-1 md:border-r mb-2 border-white md:border-1">
+        <div className="flex-1 md:border-r mb-2 dark:border-white border-black md:border-1">
           <DrawerHeader>
             <DrawerTitle className="underline decoration-wavy">
               {task ? "Edit Task" : "Create Todo"}

@@ -7,9 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 const WeekNavigator = () => {
-  const { pathname } = useLocation();
-  console.log(pathname);
-  
+  const { pathname } = useLocation();  
   const dispatch = useDispatch();
   const weekDays = useWeekDays();
 
@@ -37,7 +35,7 @@ const WeekNavigator = () => {
           <h2>{monthTitle}</h2>
         </span>
         <div className="flex md:flex-row flex-col-reverse items-center gap-3 select-none">
-          <div className='bg-blue-400 text-white px-2 py-1'>
+          <div className='bg-blue-600 text-white px-2 py-1'>
             <Link to={`${pathname  === '/' ? "/chart" : "/" }`}>
             {pathname === '/' ? "Analysis" : "Calendar"}
             </Link>
