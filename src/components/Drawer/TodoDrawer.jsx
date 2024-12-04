@@ -10,9 +10,9 @@ import { useToastHelper } from "@/utilities/showToastMsg";
 import { getSelectedDays } from "@/utilities/getSelectedDays";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { addDays, format } from "date-fns";
-import BorderAccording from "./SelectModel/BorderAccording";
+import BorderAccording from "../SelectModel/BorderAccording";
 
-const TodoForm = lazy(() => import("./TodoForm"));
+const TodoForm = lazy(() => import("@/components/Drawer/TodoForm"));
 
 const TodoDrawer = ({ date, task }) => {
   const { showToastMsg } = useToastHelper();

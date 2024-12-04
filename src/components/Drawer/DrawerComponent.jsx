@@ -1,6 +1,6 @@
-import { Drawer, DrawerContent, DrawerTrigger } from "./ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
 import { lazy, Suspense } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
 
 const TodoDrawer = lazy(() => import('./TodoDrawer'));
@@ -11,7 +11,7 @@ const DrawerComponent = ({ date, task }) => {
     <Drawer>
       <DrawerTrigger>
         {task ? (
-            <h3 className="font-semibold">{task.title}</h3>
+            <h3 className="font-semibold capitalize">{task.title}</h3>
         ) : (
             <Button
                 tabIndex={-1}
@@ -20,7 +20,7 @@ const DrawerComponent = ({ date, task }) => {
                 size="icon"
                 aria-label="Create a new todo"
             >
-                <PlusIcon className="h-4 w-4"/>
+                <PlusIcon className="h-4 w-4" />
             </Button>
         )}
       </DrawerTrigger>

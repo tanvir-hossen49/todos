@@ -1,8 +1,6 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { toggleCheckBox } from "@/store/todoSlice";
 import { useDispatch } from 'react-redux';
-import DrawerComponent from "./DrawerComponent";
+import DrawerComponent from "../Drawer/DrawerComponent";
 
 const Tasks = ({ task, date }) => {
   const dispatch = useDispatch();

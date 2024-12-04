@@ -3,10 +3,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import TasksSkeleton from "@/components/Skeleton/TasksSkeleton";
-import DrawerComponent from "@/components/DrawerComponent";
+import DrawerComponent from "@/components/Drawer/DrawerComponent";
 import useWeekDays from "@/hooks/useWeekDays";
 
-const Tasks = lazy(() => import("@/components/Tasks"));
+const Tasks = lazy(() => import("@/components/Task/Tasks"));
 
 const WEEKDAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -76,6 +76,13 @@ const Calendar = () => {
                       <div
                         className="md:opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-300"
                         tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            const button = e.target.querySelector("button");
+                            if (button) {
+                              button.click();
+                            }
+                          }}}
                       >
                         <DrawerComponent date={formattedDate} />
                       </div>

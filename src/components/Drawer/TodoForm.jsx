@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Textarea } from './ui/textarea';
-import { Button } from './ui/button';
-import { Delete, Edit, Plus } from 'lucide-react';
+import { Textarea } from '../ui/textarea';
+import { Button } from '../ui/button';
+import { Delete, Plus } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from './ui/input';
+import { Input } from '../ui/input';
 import { v4 as uuidv4 } from 'uuid';
 
 const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos, setTodos }) => {
