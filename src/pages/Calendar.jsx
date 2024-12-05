@@ -6,7 +6,7 @@ import TasksSkeleton from "@/components/Skeleton/TasksSkeleton";
 import DrawerComponent from "@/components/Drawer/DrawerComponent";
 import useWeekDays from "@/hooks/useWeekDays";
 
-const Tasks = lazy(() => import("@/components/Task/Tasks"));
+const Task = lazy(() => import("@/components/Task/Task"));
 
 const WEEKDAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -94,7 +94,7 @@ const Calendar = () => {
                     <div>
                       {findTaskForDate(formattedDate).map((task, index) => (
                         <Suspense key={index} fallback={<TasksSkeleton />}>
-                          <Tasks 
+                          <Task 
                             task={task}
                             date={formattedDate}
                           />

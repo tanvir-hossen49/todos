@@ -42,24 +42,26 @@ const WeekNavigator = () => {
           </div>
           
           <div className='flex items-center gap-3 select-none'>
-            <span>
-              <ChevronLeft
-                className="cursor-pointer"
-                onClick={() => dispatch(prevWeek())}
-              />
-            </span>
+            <ChevronLeft
+              className="cursor-pointer"
+              onClick={() => dispatch(prevWeek())}
+              tabIndex={0} 
+              onKeyDown={(e) => e.key === "Enter" && dispatch(prevWeek())}
+            />
             <span
               className="cursor-pointer" 
               onClick={() => dispatch(goToToday())}
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && dispatch(goToToday())}
             >
               Today
             </span>
-            <span>
-              <ChevronRight
-                className="cursor-pointer"
-                onClick={() => dispatch(nextWeek())}
-              />
-            </span>
+            <ChevronRight
+              className="cursor-pointer"
+              onClick={() => dispatch(nextWeek())}
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && dispatch(nextWeek())}
+            />
           </div>
         </div>
     </div>

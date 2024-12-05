@@ -185,6 +185,7 @@ const TodoDrawer = ({ date, task }) => {
                 setTodos={setTodos}
               />
             </Suspense>
+            
             <DrawerFooter>
               <ActionButtons />
             </DrawerFooter>

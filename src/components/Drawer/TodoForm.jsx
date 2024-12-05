@@ -4,8 +4,11 @@ import { Delete, Plus } from 'lucide-react';
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from '../ui/input';
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useRef } from 'react';
 
 const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos, setTodos }) => {
+    const scrollableRef = useRef(null);
+
     const addTodoBox = () => {
         const newTodo = { id: uuidv4(), level: "", isChecked: false };
         setTodos(prevTodos => [...prevTodos, newTodo]);
@@ -18,7 +21,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
             )
         );
     };
-
+      
     const handleAddProperty = () => {
         const heading = getValues("heading");
         const todo = getValues("todo") || [];
@@ -46,6 +49,24 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
         setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
     };
 
+    useEffect(() => {
+        const scrollableElement = scrollableRef.current;
+
+        const enableScroll = (e) => {
+            e.stopPropagation();
+        };
+
+        if (scrollableElement) {
+            scrollableElement.addEventListener('wheel', enableScroll, { passive: false });
+        }
+
+        return () => {
+            if (scrollableElement) {
+                scrollableElement.removeEventListener('wheel', enableScroll);
+            }
+        };
+    }, []);
+
     return (
         <div className='mx-auto w-full p-5'>
             <Textarea
@@ -66,7 +87,7 @@ const TodoForm = ({ register, unregister, getValues, errors, showToastMsg, todos
                 </p>
             )}
 
-            <div  className='ml-2 my-4 overflow-auto max-h-[190px] custom-scrollbar'>
+            <div ref={scrollableRef} className='ml-2 my-4 overflow-y-auto max-h-[190px] custom-scrollbar'>
                 {todos.map((todo, index) => (
                     <div key={todo.id} className='flex items-center justify-between mt-2'>
                         <div className="flex items-center space-x-2 md:w-5/6">
